@@ -18,10 +18,10 @@
           (click)="onSelectPosition(position)"
         >
         <span>
-          {{position.name}} <strong>{{position.cost}}</strong>
+          {{position.name}} <strong>${{position.cost}}</strong>
         </span>
           <span>
-          <i class="material-icons" (click)="onDeletePosition(position)">delete</i>
+          <i class="material-icons" (click)="onDeletePosition($event, position)">delete</i>
         </span>
         </a>
       </div>
@@ -57,6 +57,7 @@
       </div>
       <div class="input-field">
         <input
+          formControlName="cost"
           id="pos-cost"
           type="number"
           min="1"
@@ -78,13 +79,15 @@
         class="modal-action waves-effect waves-black btn-flat"
         [disabled]="form.disabled"
       >
-        Cancel</button>
+        Cancel
+      </button>
       <button
         type="submit"
         class="modal-action btn waves-effect"
         [disabled]="form.invalid || form.disabled"
       >
-        Save</button>
+        Save
+      </button>
     </div>
   </div>
 </form>

@@ -5,12 +5,12 @@ const orderRouter = express.Router();
 
 const controller = require('../../controllers/order/order.controller');
 
-orderRouter.post(
+orderRouter.get(
   '/',
   passport.authenticate('jwt', {session: false}),
   controller.getAll);
 
-orderRouter.get(
+orderRouter.post(
   '/',
   passport.authenticate('jwt', {session: false}),
   controller.create
