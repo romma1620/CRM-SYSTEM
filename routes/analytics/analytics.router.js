@@ -6,13 +6,13 @@ const controller = require('../../controllers/analytics/analytics.controller');
 
 router.get(
   '/overview',
-  controller.overview,
-  passport.authenticate('jwt', {session: false})
+  passport.authenticate('jwt', {session: false}),
+  controller.overview
 );
 router.get(
   '/analytics',
-  controller.analytic,
-  passport.authenticate('jwt', {session: false})
+  passport.authenticate('jwt', {session: false}),
+  controller.analytic
 );
 
 module.exports = router;

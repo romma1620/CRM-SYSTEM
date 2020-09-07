@@ -1,6 +1,6 @@
 const moment = require('moment');
 const Order = require('../../models/Order');
-const errorHandler = require('../../errors');
+const errorHandler = require('../../errors/ErrorHandler');
 
 function getOrdersMap(orders = []) {
   const daysOrders = {};
@@ -25,20 +25,39 @@ function calculatePrice(orders = []) {
 
   return orders.reduce((total, order) => {
     const orderPrice = order.list.reduce((orderTotal, item) => {
-      orderTotal += item.cos * item.quantity;
+      return orderTotal += item.cost * item.quantity;
     }, 0);
-    total += orderPrice;
+
+    return total += orderPrice;
   }, 0);
 }
 
 module.exports = {
   analytic: async (req, res) => {
+    try {
+      const allOrders = await Order.find({user: req.user.id}).sort({date: 1});
+      const ordersMap = getOrdersMap(allOrders);
+
+      const average = +(calculatePrice(allOrders) / Object.keys(ordersMap).length).toFixed(2);
+
+      const chart = Object.keys(ordersMap).map(label => {
+        const gain = calculatePrice(ordersMap[label]);
+        const order = ordersMap[label].length;
+
+        return {label, order, gain};
+      });
+
+      res.status(200).json({average, chart});
+
+    } catch (e){
+      errorHandler(res, e);
+    }
 
   },
 
   overview: async (req, res) => {
     try {
-      const allOrders = await Order.find({user: req.user.id}).sort({date: 1});
+      const allOrders = await Order.find( {user: req.user.id}).sort({date: 1});
       const ordersMap = getOrdersMap(allOrders);
       const yesterdayOrders = ordersMap[moment().add(-1, 'd').format('DD.MM.YYYY')] || [];
       //YESTERDAY ORDER QUANTITY
@@ -77,10 +96,9 @@ module.exports = {
           isHigher: +ordersPercent > 0
         }
       });
-    } catch (e) {
+    } catch (e){
       errorHandler(res, e);
     }
 
   }
 };
-

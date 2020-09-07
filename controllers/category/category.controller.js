@@ -1,6 +1,6 @@
 const Category = require('../../models/Category');
 const Position = require('../../models/Position');
-const errorHandler = require('../../errors');
+const errorHandler = require('../../errors/ErrorHandler');
 
 module.exports = {
   create: async (req, res) => {

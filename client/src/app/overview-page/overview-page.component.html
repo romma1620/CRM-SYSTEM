@@ -1,7 +1,11 @@
 <div class="page-title">
   <h4>
-    Yesterday Overview (09.04.2018)
-    <i class="material-icons black-text pointer">info_outline</i>
+    Yesterday Overview
+    ({{yesterday | date: 'dd.MM.yyyy'}})
+    <i
+      class="material-icons black-text pointer"
+      (click)="openInfo()"
+    >info_outline</i>
   </h4>
 </div>
 
@@ -27,9 +31,10 @@
           {{data.gain.percent}}%
         </h3>
         <p>
-          Your business have yesterday gain on
-          {{data.gain.percent}}%
+          Yesterday business gain is
           {{data.gain.isHigher ? 'higher' : 'lower'}}
+          on
+          {{data.gain.percent}}%
           than average:
           ${{data.gain.compare}}
           per day
@@ -72,3 +77,15 @@
 <ng-template #loader>
   <app-loader></app-loader>
 </ng-template>
+
+
+<div class="tap-target" data-target="menu" #tapTarget>
+  <div class="tap-target-content">
+    <h5>Why is this page needed?</h5>
+    <p>
+      The "Overview" page will show the dynamics of sales for the previous day.
+      Comparison with averages will help you understand how your business is doing.
+    </p>
+  </div>
+</div>
+
