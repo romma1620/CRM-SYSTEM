@@ -40,28 +40,24 @@ export class LoginPageComponent implements OnInit, OnDestroy {
       } else if (params.sessionExpired ){
         MaterialService.toast('Please login again');
       }
-
     });
-
-
   }
 
-  ngOnDestroy = () => {
+  ngOnDestroy() {
     if (this.aSub) {
       this.aSub.unsubscribe();
     }
   }
 
-  onSubmit = () => {
+  onSubmit() {
     this.form.disable();
 
     this.aSub = this.auth.login(this.form.value).subscribe(
       () => this.router.navigate(['/overview']),
       error => {
-        MaterialService.toast(error.error.message);
+        console.log(error);
         this.form.enable();
       }
     );
-
   }
 }

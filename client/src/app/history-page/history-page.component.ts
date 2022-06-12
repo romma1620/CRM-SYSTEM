@@ -64,7 +64,10 @@ export class HistoryPageComponent implements OnInit, OnDestroy, AfterViewInit {
     this.offset += STEP;
     this.loading = true;
     this.fetch();
+  }
 
+  get filterVisible(): boolean {
+    return this.isFilterVisible = !this.isFilterVisible;
   }
 
   applyFilter(filter: Filter): void {

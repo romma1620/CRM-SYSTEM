@@ -42,7 +42,7 @@ export class AuthService {
   }
 
   register(user: User): Observable<User> {
-    return this.http.post<User>('/api/auth/register', user)
+    return this.http.post<User>('/api/auth/register', user);
 
   }
 }

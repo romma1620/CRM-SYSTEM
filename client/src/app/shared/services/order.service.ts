@@ -43,7 +43,7 @@ export class OrderService {
 
   private totallyPrice(): void {
     this.price = this.list.reduce((total, item) => {
-      return  total += item.quantity * item.cost;
+      return total += item.quantity * item.cost;
     }, 0);
   }
 }

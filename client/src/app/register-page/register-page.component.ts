@@ -33,13 +33,13 @@ export class RegisterPageComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy = () => {
+  ngOnDestroy() {
     if (this.aSub) {
       this.aSub.unsubscribe();
     }
   }
 
-  onSubmit = () => {
+  onSubmit() {
     this.form.disable();
     this.aSub = this.auth.register(this.form.value).subscribe(
       () => {

@@ -30,20 +30,14 @@ export class HistoryListComponent implements OnDestroy, AfterViewInit {
     return order.list.reduce((total, item) => {
       return total += item.quantity * item.cost;
     }, 0);
-
-
   }
 
   selectOrder(order: Order): void {
     this.selectedOrder = order;
     this.modal.open();
-
-
-
   }
 
   closeModal(): void {
     this.modal.close();
-
   }
 }
